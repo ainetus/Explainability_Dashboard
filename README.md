@@ -80,7 +80,7 @@ A screenshot of the Explainability dashboard is provided below. It composed of t
 
 2. **Visualization panel**: the overload graph obtained using the ExpertOp4Grid package when the grid is loaded with an overload, else the grid. After `Next overloaded scenario`, the ends of the overloaded lines are circled. After `Recommend Action`, the grid after the agent's action shows the expert interest zone, the substations of the expert's action and those of the agent's action.
 
-![an image](./imgs/xpanel_new.png)
+![an image](./imgs/xpanel_last.png)
 
 ### Usage
 You can run the dashboard by simply executing the following command:
