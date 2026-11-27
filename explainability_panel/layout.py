@@ -92,8 +92,33 @@ layout = dbc.Container([
                     # Rho difference
                     dbc.Row(
                         [
-                            dbc.Col(html.P("> Rho difference between agent & expert:", className="fs-5")),
+                            dbc.Col(html.P("> Rho difference, agent − expert (simulated, > 0: agent worse):", className="fs-5")),
                             dbc.Col(html.Div("", id="rho-diff-output", className="border p-2", style={"fontSize": "0.95rem", "backgroundColor": "#f8f9fa"}))
+                        ],
+                        className="mb-2"
+                    ),
+                    html.Hr(),
+
+                    # Rank among the greedy actions
+                    dbc.Row(
+                        [
+                            dbc.Col(html.P("> Rank of the agent's action among the greedy actions:", className="fs-5")),
+                            dbc.Col(html.Div("", id="greedy-rank-output", className="border p-2", style={"fontSize": "0.95rem", "backgroundColor": "#f8f9fa"}))
+                        ],
+                        className="mb-2"
+                    ),
+                    html.Hr(),
+
+                    # Kendall rank correlation
+                    dbc.Row(
+                        [
+                            dbc.Col(html.P("> Kendall τ, agent's ranking vs simulated outcome of its top-k:", className="fs-5")),
+                            dbc.Col(
+                                dbc.Row([
+                                    dbc.Col(html.Div("", id="kendall-stat-output", className="border p-2", style={"fontSize": "0.95rem", "backgroundColor": "#f8f9fa"})),
+                                    dbc.Col(html.Div("", id="kendall-pval-output", className="border p-2", style={"fontSize": "0.95rem", "backgroundColor": "#f8f9fa"})),
+                                ])
+                            )
                         ],
                         className="mb-2"
                     ),
@@ -102,7 +127,7 @@ layout = dbc.Container([
                     # Wilcoxon test
                     dbc.Row(
                         [
-                            dbc.Col(html.P("> Wilcoxon test statistics:", className="fs-5")),
+                            dbc.Col(html.P("> Wilcoxon test, agent's top-k vs greedy top-k:", className="fs-5")),
                             dbc.Col(
                                 dbc.Row([
                                     dbc.Col(html.Div("", id="test-stat-output", className="border p-2", style={"fontSize": "0.95rem", "backgroundColor": "#f8f9fa"})),
@@ -148,6 +173,25 @@ layout = dbc.Container([
     ),
     dbc.Row(
     [
+        dbc.Col(
+            html.Div(
+                [
+                    html.Span("Agent:", className="fs-5 me-2"),
+                    dbc.RadioItems(
+                        id="agent-choice",
+                        options=[
+                            {"label": "Expert heuristic", "value": "heuristic"},
+                            {"label": "PPO (RL)", "value": "ppo"},
+                        ],
+                        value="heuristic",
+                        inline=True,
+                    ),
+                    html.Small("(applied at Load Env)", className="text-muted ms-1"),
+                ],
+                className="d-flex align-items-center h-100",
+            ),
+            width="auto"
+        ),
         dbc.Col(
             dbc.Button(
                 "Load Env",
